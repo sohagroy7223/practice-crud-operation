@@ -1,8 +1,9 @@
-import { use } from "react";
+import { use, useState } from "react";
 // import { data } from "react-router";
 
 const Users = ({ userPromise }) => {
-  const users = use(userPromise);
+  const initialUser = use(userPromise);
+  const [users, setUsers] = useState(initialUser);
   //   console.log(users);
 
   const handleAddUser = (e) => {
@@ -24,7 +25,11 @@ const Users = ({ userPromise }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log("after fetch user", data);
+
         if (data.insertedId) {
+          newUser._id = data.insertedId;
+          const newUsers = [...users, newUser];
+          setUsers(newUsers);
           alert("add user successfully");
           e.target.reset();
         }
@@ -40,6 +45,8 @@ const Users = ({ userPromise }) => {
         console.log("after delete", data);
         if (data.deletedCount) {
           alert("delete user successfully");
+          const remainingUser = users.filter((user) => user._id !== id);
+          setUsers(remainingUser);
         }
       });
   };
