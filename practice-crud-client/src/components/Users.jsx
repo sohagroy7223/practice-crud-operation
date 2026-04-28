@@ -1,7 +1,5 @@
-import React from "react";
-
 const Users = () => {
-  const handelAddUser = (e) => {
+  const handleAddUser = (e) => {
     e.preventDefault();
 
     const name = e.target.name.value;
@@ -28,7 +26,7 @@ const Users = () => {
   };
   return (
     <div>
-      <form onSubmit={handelAddUser}>
+      <form onSubmit={handleAddUser}>
         <input type="text" name="name" placeholder="your name" />
         <br />
         <input type="email" name="email" id="" placeholder="email" />
