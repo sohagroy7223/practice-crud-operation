@@ -1,4 +1,5 @@
 import { use } from "react";
+// import { data } from "react-router";
 
 const Users = ({ userPromise }) => {
   const users = use(userPromise);
@@ -29,6 +30,20 @@ const Users = ({ userPromise }) => {
         }
       });
   };
+
+  const handelDeleteUser = (id) => {
+    fetch(`http://localhost:3000/users/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("after delete", data);
+        if (data.deletedCount) {
+          alert("delete user successfully");
+        }
+      });
+  };
+
   return (
     <div>
       <form onSubmit={handleAddUser}>
@@ -43,6 +58,7 @@ const Users = ({ userPromise }) => {
         {users.map((user) => (
           <p key={user._id}>
             {user.name}: {user.email}
+            <button onClick={() => handelDeleteUser(user._id)}>x</button>
           </p>
         ))}
       </div>
