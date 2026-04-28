@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import User from "./components/User.jsx";
+import UserDetails from "./components/UserDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,9 +16,14 @@ const router = createBrowserRouter([
     path: "/users/:id",
     Component: User,
   },
+  {
+    path: "/details/:id",
+    loader: ({ params }) => fetch(`http://localhost:3000/users/${params.id}`),
+    Component: UserDetails,
+  },
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />,
+    <RouterProvider router={router} />
   </StrictMode>,
 );
