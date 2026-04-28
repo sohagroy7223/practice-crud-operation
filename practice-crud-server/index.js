@@ -51,6 +51,22 @@ async function run() {
       res.send(result);
     });
 
+    // update user
+    app.patch("/users/:id", async (req, res) => {
+      const updateUser = req.body;
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const update = {
+        $set: {
+          name: updateUser.name,
+          email: updateUser.email,
+        },
+      };
+      const options = {};
+      const result = await myCollection.updateOne(query, update, options);
+      res.send(result);
+    });
+
     app.delete("/users/:id", async (req, res) => {
       const id = req.params.id;
       const user = { _id: new ObjectId(id) };

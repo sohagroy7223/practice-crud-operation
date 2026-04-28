@@ -55,9 +55,9 @@ const Users = ({ userPromise }) => {
   return (
     <div>
       <form onSubmit={handleAddUser}>
-        <input type="text" name="name" placeholder="your name" />
+        <input type="text" name="name" placeholder="your name" required />
         <br />
-        <input type="email" name="email" placeholder="email" />
+        <input type="email" name="email" placeholder="email" required />
         <br />
         <input type="submit" value="add user" />
       </form>
@@ -67,6 +67,7 @@ const Users = ({ userPromise }) => {
           <p key={user._id}>
             {user.name} : {user.email}
             <Link to={`/details/${user._id}`}>Details</Link>
+            <Link to={`/update/${user._id}`}>Edit</Link>
             <button onClick={() => handelDeleteUser(user._id)}>x</button>
           </p>
         ))}
