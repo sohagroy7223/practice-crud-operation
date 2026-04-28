@@ -6,10 +6,8 @@ const port = process.env.PORT || 3000;
 
 // middleware
 app.use(cors());
-app.use(express());
+app.use(express.json());
 
-// sohagroy7223_db_user
-// nZ1SM80jGVeFAiaS
 const uri =
   "mongodb+srv://sohagroy7223_db_user:nZ1SM80jGVeFAiaS@crud-practice-cluster.l3ixzxm.mongodb.net/?appName=crud-practice-cluster";
 
@@ -28,6 +26,15 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
+    const userDB = client.db("usersDb");
+    const myCollection = userDB.collection("users");
+
+    app.post("/users", async (req, res) => {
+      const newUser = req.body;
+      const result = await myCollection.insertOne(newUser);
+      res.send(result);
+    });
+
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!",
