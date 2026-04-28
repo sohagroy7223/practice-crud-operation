@@ -1,4 +1,9 @@
-const Users = () => {
+import { use } from "react";
+
+const Users = ({ userPromise }) => {
+  const users = use(userPromise);
+  //   console.log(users);
+
   const handleAddUser = (e) => {
     e.preventDefault();
 
@@ -33,6 +38,14 @@ const Users = () => {
         <br />
         <input type="submit" value="add user" />
       </form>
+      <div>
+        <h3>all users here {users.length}</h3>
+        {users.map((user) => (
+          <p key={user._id}>
+            {user.name}: {user.email}
+          </p>
+        ))}
+      </div>
     </div>
   );
 };
